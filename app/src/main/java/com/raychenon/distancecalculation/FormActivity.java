@@ -59,8 +59,11 @@ public class FormActivity extends AppCompatActivity {
                 public void onResponse(final Call<DistanceMatrixResponse> call,
                         final Response<DistanceMatrixResponse> response) {
                     if (response.isSuccessful()) {
-                        distanceTextView.setText(response.body().status);
-                    } else { }
+                        DistanceMatrixResponse dmResponse = response.body();
+                        distanceTextView.setText(dmResponse.getDistance());
+                    } else {
+                        distanceTextView.setText(getString(R.string.error_from_query));
+                    }
                 }
 
                 @Override

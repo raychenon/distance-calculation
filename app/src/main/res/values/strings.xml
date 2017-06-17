@@ -6,7 +6,7 @@
     <string name="prompt_end">Point B</string>
     <string name="error_invalid_start">This starting point address is invalid</string>
     <string name="error_invalid_end">This end point address is invalid</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
 
+    <string name="error_from_query">Error from calculation</string>
 </resources>
