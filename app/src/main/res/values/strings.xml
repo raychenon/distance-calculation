@@ -9,4 +9,11 @@
     <string name="error_field_required">This field is required</string>
 
     <string name="error_from_query">Error from calculation</string>
+
+    <string name="t_mode">Transportation mode:</string>
+    <string name="tm_drive">driving</string>
+    <string name="tm_walk">walking</string>
+    <string name="tm_bike">bicycling</string>
+    <string name="tm_transit">transit</string>
+
 </resources>

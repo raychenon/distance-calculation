@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -36,6 +37,12 @@ public class FormActivity extends AppCompatActivity {
     @BindView(R.id.calculate_button)
     Button button;
 
+    @BindView(R.id.radio_group)
+    RadioGroup radioGroup;
+
+    @BindView(R.id.transportation_mode)
+    TextView transportationTxtView;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,25 +60,47 @@ public class FormActivity extends AppCompatActivity {
         Log.d("FormActivity", "calculate: start" + startAutoTxtView.getText());
 
         DistanceService service = new DistanceService();
-        service.request(startAutoTxtView.getText().toString(), endAutoTxtView.getText().toString(), "driving").enqueue(
-            new Callback<DistanceMatrixResponse>() {
-                @Override
-                public void onResponse(final Call<DistanceMatrixResponse> call,
-                        final Response<DistanceMatrixResponse> response) {
-                    if (response.isSuccessful()) {
-                        DistanceMatrixResponse dmResponse = response.body();
-                        distanceTextView.setText(dmResponse.getDistance());
-                    } else {
-                        distanceTextView.setText(getString(R.string.error_from_query));
-                    }
-                }
+        service.request(startAutoTxtView.getText().toString(), endAutoTxtView.getText().toString(),
+                   getRadioGroupChoice()).enqueue(new Callback<DistanceMatrixResponse>() {
+                       @Override
+                       public void onResponse(final Call<DistanceMatrixResponse> call,
+                               final Response<DistanceMatrixResponse> response) {
+                           if (response.isSuccessful()) {
+                               DistanceMatrixResponse dmResponse = response.body();
+                               distanceTextView.setText(dmResponse.getDistance());
+                           } else {
+                               distanceTextView.setText(getString(R.string.error_from_query));
+                           }
 
-                @Override
-                public void onFailure(final Call<DistanceMatrixResponse> call, final Throwable t) {
-                    t.printStackTrace();
-                    distanceTextView.setText(t.getMessage());
-                }
-            });
+                           transportationTxtView.setText(getRadioGroupChoice());
+                       }
 
+                       @Override
+                       public void onFailure(final Call<DistanceMatrixResponse> call, final Throwable t) {
+                           t.printStackTrace();
+                           distanceTextView.setText(t.getMessage());
+                       }
+                   });
+
+    }
+
+    private String getRadioGroupChoice() {
+        switch (radioGroup.getCheckedRadioButtonId()) {
+
+            case R.id.radio_bike :
+                return getString(R.string.tm_bike);
+
+            case R.id.radio_driving :
+                return getString(R.string.tm_drive);
+
+            case R.id.radio_walking :
+                return getString(R.string.tm_walk);
+
+            case R.id.radio_transit :
+                return getString(R.string.tm_transit);
+
+            default :
+                return getString(R.string.tm_drive);
+        }
     }
 }
