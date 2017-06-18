@@ -16,6 +16,9 @@
     <string name="tm_bike">bicycling</string>
     <string name="tm_transit">transit</string>
 
+    <string name="result_distance">Distance estimated: {0}</string>
+
+    <string name="history">Search history</string>
     <string name="vh_start_point">Start: {0}</string>
     <string name="vh_end_point">End: {0}</string>
     <string name="vh_mode">Mode: {0}</string>

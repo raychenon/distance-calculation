@@ -1,5 +1,7 @@
 package com.raychenon.distancecalculation;
 
+import java.text.MessageFormat;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,9 +50,6 @@ public class FormActivity extends AppCompatActivity {
 
     @BindView(R.id.radio_group)
     RadioGroup radioGroup;
-
-    @BindView(R.id.transportation_mode)
-    TextView transportationTxtView;
 
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
@@ -104,14 +103,14 @@ public class FormActivity extends AppCompatActivity {
                         final Response<DistanceMatrixResponse> response) {
                     if (response.isSuccessful()) {
                         DistanceMatrixResponse dmResponse = response.body();
-                        distanceTextView.setText(dmResponse.getDistance());
+                        distanceTextView.setText(
+                            MessageFormat.format(getString(R.string.result_distance), dmResponse.getDistance()));
                         saveForRecyclerView(pointA, pointB, transportationMode, dmResponse.getDistance());
                     } else {
                         distanceTextView.setText(getString(R.string.error_from_query));
                     }
 
                     progressBar.setVisibility(View.GONE);
-                    transportationTxtView.setText(getRadioGroupChoice());
                 }
 
                 @Override

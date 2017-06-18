@@ -88,21 +88,21 @@
         android:visibility="gone"/>
 
     <TextView
+        android:id="@+id/distance_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Result"
+        android:textStyle="bold"
         />
 
     <TextView
         android:id="@+id/transportation_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/history"
+        android:textStyle="bold"
+        android:textSize="14sp"
         />
-    <TextView
-        android:id="@+id/distance_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+
 
     <View
         android:layout_width="match_parent"
