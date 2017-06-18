@@ -3,12 +3,16 @@ package com.raychenon.distancecalculation;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.raychenon.distancecalculation.adapter.ResultAdapter;
 import com.raychenon.distancecalculation.http.DistanceService;
 import com.raychenon.distancecalculation.http.response.DistanceMatrixResponse;
+import com.raychenon.distancecalculation.model.CalculationResultModel;
 
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import android.view.View;
 
@@ -50,11 +54,16 @@ public class FormActivity extends AppCompatActivity {
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
 
+    @BindView(R.id.history_recycler_view)
+    RecyclerView recyclerView;
+
     private Set<String> startAddressSet = new HashSet<String>();
     private Set<String> endAddressSet = new HashSet<String>();
 
-    ArrayAdapter<String> startAdapter;
-    ArrayAdapter<String> endAdapter;
+    private ArrayAdapter<String> startAdapter;
+    private ArrayAdapter<String> endAdapter;
+
+    private ResultAdapter recyclerViewAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -67,6 +76,11 @@ public class FormActivity extends AppCompatActivity {
         endAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line);
         startAutoTxtView.setAdapter(startAdapter);
         endAutoTxtView.setAdapter(endAdapter);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerViewAdapter = new ResultAdapter(null);
+        recyclerView.setAdapter(recyclerViewAdapter);
     }
 
     @OnClick(R.id.calculate_button)
@@ -75,7 +89,7 @@ public class FormActivity extends AppCompatActivity {
         String endPoint = endAutoTxtView.getText().toString();
 
         calculateDistance(startPoint, endPoint, getRadioGroupChoice());
-        saveAdressesInHistory(startPoint, endPoint);
+        saveAdressesInHistoryForAutocompletion(startPoint, endPoint);
     }
 
     private void calculateDistance(final String pointA, final String pointB, final String transportationMode) {
@@ -89,6 +103,7 @@ public class FormActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         DistanceMatrixResponse dmResponse = response.body();
                         distanceTextView.setText(dmResponse.getDistance());
+                        saveForRecyclerView(pointA, pointB, transportationMode, dmResponse.getDistance());
                     } else {
                         distanceTextView.setText(getString(R.string.error_from_query));
                     }
@@ -107,7 +122,7 @@ public class FormActivity extends AppCompatActivity {
 
     }
 
-    private void saveAdressesInHistory(final String startPoint, final String endPoint) {
+    private void saveAdressesInHistoryForAutocompletion(final String startPoint, final String endPoint) {
         modifyAutoCompleteTextViewAdapter(startPoint, startAddressSet, startAdapter);
         modifyAutoCompleteTextViewAdapter(endPoint, endAddressSet, endAdapter);
     }
@@ -141,5 +156,12 @@ public class FormActivity extends AppCompatActivity {
             default :
                 return getString(R.string.tm_drive);
         }
+    }
+
+    private void saveForRecyclerView(final String pointA, final String pointB, final String transportationMode,
+            final String distance) {
+        CalculationResultModel model = new CalculationResultModel(pointA, pointB, transportationMode, distance);
+        recyclerViewAdapter.appendModel(model);
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 }
