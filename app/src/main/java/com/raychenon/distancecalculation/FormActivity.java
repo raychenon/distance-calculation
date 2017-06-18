@@ -10,8 +10,6 @@ import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 
-import android.util.Log;
-
 import android.view.View;
 
 import android.widget.ArrayAdapter;
@@ -81,7 +79,6 @@ public class FormActivity extends AppCompatActivity {
     }
 
     private void calculateDistance(final String pointA, final String pointB, final String transportationMode) {
-        Log.d("FormActivity", "calculate: start" + startAutoTxtView.getText());
         progressBar.setVisibility(View.VISIBLE);
 
         DistanceService service = new DistanceService();

@@ -16,15 +16,17 @@ public class DistanceMatrixResponse {
 
     public String status;
 
+    private static final String ERROR = "not found";
+
     public boolean isValid() {
         return rows.size() > 0 && rows.get(0).elements.size() > 0;
     }
 
     public String getDistance() {
-        return isValid() ? rows.get(0).elements.get(0).distance.text : status;
+        return isValid() ? rows.get(0).elements.get(0).distance.text : ERROR;
     }
 
     public String getDuration() {
-        return isValid() ? rows.get(0).elements.get(0).duration.text : status;
+        return isValid() ? rows.get(0).elements.get(0).duration.text : ERROR;
     }
 }

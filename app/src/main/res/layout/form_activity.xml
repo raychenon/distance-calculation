@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/prompt_start"
             android:inputType="text"
+            android:text="Erich-Weinert Str 140,10409, Berlin"
             android:maxLines="1" />
 
     </android.support.design.widget.TextInputLayout>
@@ -37,6 +38,7 @@
             android:hint="@string/prompt_end"
             android:imeOptions="actionUnspecified"
             android:inputType="text"
+            android:text="Rosenthaler Straße 40-41, 10178 Berlin"
             android:maxLines="1" />
 
     </android.support.design.widget.TextInputLayout>
