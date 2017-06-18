@@ -19,7 +19,8 @@ public class DistanceMatrixResponse {
     private static final String ERROR = "not found";
 
     public boolean isValid() {
-        return rows.size() > 0 && rows.get(0).elements.size() > 0;
+        return "OK".equals(status) && rows.size() > 0 && rows.get(0).elements.size() > 0
+                && "OK".equals(rows.get(0).elements.get(0).status);
     }
 
     public String getDistance() {
