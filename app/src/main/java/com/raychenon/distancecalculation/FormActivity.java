@@ -5,7 +5,7 @@ import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.raychenon.distancecalculation.adapter.ResultAdapter;
+import com.raychenon.distancecalculation.adapter.CalculationResultAdapter;
 import com.raychenon.distancecalculation.adapter.SimpleDividerItemDecoration;
 import com.raychenon.distancecalculation.http.DistanceService;
 import com.raychenon.distancecalculation.http.response.DistanceMatrixResponse;
@@ -63,7 +63,7 @@ public class FormActivity extends AppCompatActivity {
     private ArrayAdapter<String> startAdapter;
     private ArrayAdapter<String> endAdapter;
 
-    private ResultAdapter recyclerViewAdapter;
+    private CalculationResultAdapter recyclerViewAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class FormActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerViewAdapter = new ResultAdapter(this);
+        recyclerViewAdapter = new CalculationResultAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
     }

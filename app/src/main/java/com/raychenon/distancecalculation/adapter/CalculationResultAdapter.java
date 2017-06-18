@@ -23,13 +23,13 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultViewHolder> {
+public class CalculationResultAdapter extends RecyclerView.Adapter<CalculationResultAdapter.ResultViewHolder> {
 
     private Context context;
     private List<CalculationResultModel> list;
     private Set<CalculationResultModel> uniqueResults;
 
-    public ResultAdapter(final Context context) {
+    public CalculationResultAdapter(final Context context) {
 
         this.list = new LinkedList<CalculationResultModel>();
         this.uniqueResults = new HashSet<CalculationResultModel>();

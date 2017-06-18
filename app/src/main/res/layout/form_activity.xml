@@ -95,9 +95,9 @@
         />
 
     <TextView
-        android:id="@+id/transportation_mode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_margin"
         android:text="@string/history"
         android:textStyle="bold"
         android:textSize="14sp"
