@@ -22,9 +22,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/prompt_start"
             android:inputType="text"
-            android:text="Erich-Weinert Str 140,10409, Berlin"
-            android:maxLines="1"
-            android:singleLine="true" />
+            android:maxLines="1" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -32,16 +30,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/end_auto_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_end"
             android:imeOptions="actionUnspecified"
             android:inputType="text"
-            android:text="Bellevuestraße 5, 10785 Berlin"
-            android:maxLines="1"
-            android:singleLine="true" />
+            android:maxLines="1" />
 
     </android.support.design.widget.TextInputLayout>
 

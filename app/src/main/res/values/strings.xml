@@ -2,8 +2,8 @@
     <string name="app_name">Distance Calculation</string>
     <string name="confirm">Calculate</string>
 
-    <string name="prompt_start">Point A</string>
-    <string name="prompt_end">Point B</string>
+    <string name="prompt_start">Point A. ex : Erich-Weinert Str 140,10409, Berlin</string>
+    <string name="prompt_end">Point B. ex: Rosenthaler Straße 40-41, 10178 Berlin</string>
     <string name="error_invalid_start">This starting point address is invalid</string>
     <string name="error_invalid_end">This end point address is invalid</string>
     <string name="error_field_required">This field is required</string>

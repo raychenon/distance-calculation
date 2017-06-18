@@ -1,5 +1,8 @@
 package com.raychenon.distancecalculation;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.raychenon.distancecalculation.http.DistanceService;
 import com.raychenon.distancecalculation.http.response.DistanceMatrixResponse;
 
@@ -11,9 +14,9 @@ import android.util.Log;
 
 import android.view.View;
 
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -32,7 +35,7 @@ public class FormActivity extends AppCompatActivity {
     AutoCompleteTextView startAutoTxtView;
 
     @BindView(R.id.end_auto_textview)
-    EditText endAutoTxtView;
+    AutoCompleteTextView endAutoTxtView;
 
     @BindView(R.id.distance_text)
     TextView distanceTextView;
@@ -49,18 +52,32 @@ public class FormActivity extends AppCompatActivity {
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
 
+    private Set<String> startAddressSet = new HashSet<String>();
+    private Set<String> endAddressSet = new HashSet<String>();
+
+    ArrayAdapter<String> startAdapter;
+    ArrayAdapter<String> endAdapter;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.form_activity);
 
         ButterKnife.bind(this);
+
+        startAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line);
+        endAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line);
+        startAutoTxtView.setAdapter(startAdapter);
+        endAutoTxtView.setAdapter(endAdapter);
     }
 
     @OnClick(R.id.calculate_button)
     public void calculate(final Button button) {
-        calculateDistance(startAutoTxtView.getText().toString(), endAutoTxtView.getText().toString(),
-            getRadioGroupChoice());
+        String startPoint = startAutoTxtView.getText().toString();
+        String endPoint = endAutoTxtView.getText().toString();
+
+        calculateDistance(startPoint, endPoint, getRadioGroupChoice());
+        saveAdressesInHistory(startPoint, endPoint);
     }
 
     private void calculateDistance(final String pointA, final String pointB, final String transportationMode) {
@@ -91,6 +108,22 @@ public class FormActivity extends AppCompatActivity {
                 }
             });
 
+    }
+
+    private void saveAdressesInHistory(final String startPoint, final String endPoint) {
+        modifyAutoCompleteTextViewAdapter(startPoint, startAddressSet, startAdapter);
+        modifyAutoCompleteTextViewAdapter(endPoint, endAddressSet, endAdapter);
+    }
+
+    // put unique addresses in the autoCompleTextView
+    // maybe the AutoCompleTextView handles this
+    private void modifyAutoCompleteTextViewAdapter(final String point, final Set<String> addressSet,
+            final ArrayAdapter<String> adapter) {
+        if (!addressSet.contains(point)) {
+            addressSet.add(point);
+            adapter.add(point);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private String getRadioGroupChoice() {
