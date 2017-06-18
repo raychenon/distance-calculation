@@ -80,7 +80,7 @@ public class FormActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerViewAdapter = new ResultAdapter(null);
+        recyclerViewAdapter = new ResultAdapter(this, null);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
     }
@@ -162,7 +162,7 @@ public class FormActivity extends AppCompatActivity {
 
     private void saveForRecyclerView(final String pointA, final String pointB, final String transportationMode,
             final String distance) {
-        CalculationResultModel model = new CalculationResultModel(pointA, pointB, transportationMode, distance);
+        CalculationResultModel model = new CalculationResultModel(pointA, pointB, distance, transportationMode);
         recyclerViewAdapter.appendModel(model);
         recyclerViewAdapter.notifyDataSetChanged();
     }
