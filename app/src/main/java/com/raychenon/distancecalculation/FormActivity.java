@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.raychenon.distancecalculation.adapter.ResultAdapter;
+import com.raychenon.distancecalculation.adapter.SimpleDividerItemDecoration;
 import com.raychenon.distancecalculation.http.DistanceService;
 import com.raychenon.distancecalculation.http.response.DistanceMatrixResponse;
 import com.raychenon.distancecalculation.model.CalculationResultModel;
@@ -81,6 +82,7 @@ public class FormActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerViewAdapter = new ResultAdapter(null);
         recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
     }
 
     @OnClick(R.id.calculate_button)
