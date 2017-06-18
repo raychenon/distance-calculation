@@ -11,6 +11,8 @@ import com.raychenon.distancecalculation.http.DistanceService;
 import com.raychenon.distancecalculation.http.response.DistanceMatrixResponse;
 import com.raychenon.distancecalculation.model.CalculationResultModel;
 
+import android.content.Context;
+
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +20,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import android.view.View;
+
+import android.view.inputmethod.InputMethodManager;
 
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -86,6 +90,11 @@ public class FormActivity extends AppCompatActivity {
 
     @OnClick(R.id.calculate_button)
     public void calculate(final Button button) {
+
+        // close the soft keyboard
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(startAutoTxtView.getWindowToken(), 0);
+
         String startPoint = startAutoTxtView.getText().toString();
         String endPoint = endAutoTxtView.getText().toString();
 
