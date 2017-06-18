@@ -79,7 +79,7 @@ public class FormActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerViewAdapter = new ResultAdapter(this, null);
+        recyclerViewAdapter = new ResultAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
     }

@@ -2,8 +2,10 @@ package com.raychenon.distancecalculation.adapter;
 
 import java.text.MessageFormat;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import com.raychenon.distancecalculation.R;
 import com.raychenon.distancecalculation.model.CalculationResultModel;
@@ -25,19 +27,21 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ResultView
 
     private Context context;
     private List<CalculationResultModel> list;
+    private Set<CalculationResultModel> uniqueResults;
 
-    public ResultAdapter(final Context context, final List<CalculationResultModel> list) {
-        if (list != null) {
-            this.list = list;
-        } else {
-            this.list = new LinkedList<CalculationResultModel>();
-        }
+    public ResultAdapter(final Context context) {
+
+        this.list = new LinkedList<CalculationResultModel>();
+        this.uniqueResults = new HashSet<CalculationResultModel>();
 
         this.context = context;
     }
 
     public void appendModel(final CalculationResultModel model) {
-        this.list.add(model);
+        if (!uniqueResults.contains(model)) {
+            uniqueResults.add(model);
+            this.list.add(model);
+        }
     }
 
     @Override
